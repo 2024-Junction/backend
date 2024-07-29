@@ -3,6 +3,7 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { validate } from './util/env.validation';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 
 @Module({
@@ -23,7 +24,6 @@ import * as path from 'path';
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
         entities: [
-          // path.join(__dirname, '../**/*.entity.{js,ts}'),
           "dist/**/*.entity.js"
         ],
         synchronize: true,
@@ -31,7 +31,8 @@ import * as path from 'path';
         timezone: 'local',
       })
     }),
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
