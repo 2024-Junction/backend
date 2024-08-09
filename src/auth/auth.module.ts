@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/entity/user.entity';
 import { JwtStrategy } from './guards/jwt.strategy';
 import { UsersService } from 'src/users/users.service';
+import { NaverStrategy } from './guards/naver-oauth.strategy';
+import { KakaoStrategy } from './guards/kakao-oauth.strategy';
 
 @Module({
   imports: [PassportModule, ConfigModule, JwtModule.registerAsync({
@@ -21,6 +23,6 @@ import { UsersService } from 'src/users/users.service';
     TypeOrmModule.forFeature([User])
   ],
   controllers: [AuthController],
-  providers: [GoogleStrategy, JwtStrategy, UsersService]
+  providers: [GoogleStrategy, NaverStrategy, KakaoStrategy, JwtStrategy, UsersService]
 })
 export class AuthModule { }

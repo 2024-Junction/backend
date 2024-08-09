@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt'
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     constructor(readonly config: ConfigService, private readonly jwtService: JwtService) {
         const GOOGLE_CLIENT_ID = config.get('GOOGLE_CLIENT_ID');
-        const GOOGLE_CLIENT_SECRET = config.get('GOOGLE_SECRET');
+        const GOOGLE_CLIENT_SECRET = config.get('GOOGLE_CLIENT_SECRET');
         const CALLBACK_URL = config.get('GOOGLE_CALLBACK_URL');
 
         super({
