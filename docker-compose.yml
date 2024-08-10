@@ -8,7 +8,7 @@ services:
       - febnine-net
   local-db:
     image: library/mysql:5.7
-    container_name: junction
+    container_name: junctionDB
     restart: always
     ports:
       - 3306:3306
