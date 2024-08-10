@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { validate } from './util/env.validation';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { FoodModule } from './food/food.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { AuthModule } from './auth/auth.module';
       })
     }),
     UsersModule,
-    AuthModule
+    AuthModule,
+    FoodModule
   ],
   controllers: [],
   providers: [],
