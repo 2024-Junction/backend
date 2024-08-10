@@ -16,7 +16,7 @@ const generative_ai_1 = require("@google/generative-ai");
 let GeminiService = class GeminiService {
     constructor(configService) {
         this.configService = configService;
-        this.gemini = new generative_ai_1.GoogleGenerativeAI(configService.get('GEMINI_API_KEY'));
+        this.gemini = new generative_ai_1.GoogleGenerativeAI(configService.get('AIzaSyB1k4s9J_gIt6tXjdHWGMIxyhsyF9nq6bE'));
         this.model = this.gemini.getGenerativeModel({ model: "gemini-1.5-flash" });
     }
     async analyze(foodSentence) {
