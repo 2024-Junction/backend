@@ -1,5 +1,6 @@
 declare enum Environment {
-    Dev = "dev"
+    Dev = "dev",
+    Prod = "prod"
 }
 declare class EnvironmentVariables {
     NODE_ENV: Environment;

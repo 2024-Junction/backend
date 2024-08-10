@@ -15,6 +15,7 @@ const class_validator_1 = require("class-validator");
 var Environment;
 (function (Environment) {
     Environment["Dev"] = "dev";
+    Environment["Prod"] = "prod";
 })(Environment || (Environment = {}));
 class EnvironmentVariables {
 }
