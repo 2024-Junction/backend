@@ -20,6 +20,6 @@ export class FoodController {
     @ApiOperation({ summary: 'get alternative food data' })
     @ApiResponse({ status: 201 })
     async getAlternativeFood(@Req() req, @Body('query') query: string) {
-        return this.geminiService.analyzeAndRecommend(query);
+        return this.geminiService.analyze(query);
     }
 }

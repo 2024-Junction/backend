@@ -1,12 +1,11 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import { UsersService } from 'src/users/users.service';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-    constructor() { }
+    constructor(private readonly userService: UsersService) { }
 
     @Get('/google')
     @ApiOperation({ summary: 'get google oauth page url' })
@@ -20,7 +19,8 @@ export class AuthController {
     @ApiOperation({ summary: 'get user data from google' })
     @ApiResponse({ status: 200 })
     @UseGuards(AuthGuard('google'))
-    googleAuthRedirect(@Req() req) {
+    async googleAuthRedirect(@Req() req) {
+        await this.userService.create({ ...req.user.user, loginType: 'google' });
         return {
             message: 'User information from Google',
             user: req.user.user,
@@ -40,7 +40,8 @@ export class AuthController {
     @ApiOperation({ summary: 'get user data from kakao' })
     @ApiResponse({ status: 200 })
     @UseGuards(AuthGuard('kakao'))
-    kakaoAuthRedirect(@Req() req) {
+    async kakaoAuthRedirect(@Req() req) {
+        await this.userService.create({ ...req.user.user, loginType: 'kakao' });
         return {
             message: 'Kakao information from kakao',
             user: req.user.user,
@@ -64,6 +65,7 @@ export class AuthController {
     async naverAuthCallback(
         @Req() req,
     ) {
+        await this.userService.create({ ...req.user.user, loginType: 'naver' });
         return {
             message: 'User information from Naver',
             user: req.user.user,

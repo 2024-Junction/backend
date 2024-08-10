@@ -16,4 +16,7 @@ export class User {
 
     @Column()
     picture: string;
+
+    @Column()
+    loginType: string;
 }

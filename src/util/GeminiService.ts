@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
+import axios from "axios";
 
 @Injectable()
 export class GeminiService {
@@ -15,13 +16,26 @@ export class GeminiService {
     }
 
 
-    async analyzeAndRecommend(foodSentence: string): Promise<string> {
-        const prompt = `The user said they want to eat the following food: "${foodSentence}". 
-    Please analyze the reason for this craving and suggest an alternative food that is suitable for pregnant women. Make the data format a JSON file.  The JSON file must contain only the values ​​of analysis, reason, suggestion_food, and suggestion_reason.`;
+    async analyze(foodSentence: string): Promise<any> {
+        let result = {}
 
-        const result = await this.model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        return text;
+        const foodAnalysisResult = await this.model.generateContent(`The user said they want to eat the following food: "${foodSentence}". Determine whether the food is harmful to pregnant women in the order of ok, avoid, dangerous, and write it`);
+        const response = await foodAnalysisResult.response;
+        const text = await response.text();
+
+        if (text !== 'ok') {
+            let res = await this.model.generateContent(`${foodSentence} Explain in one line why foods are bad for pregnant women.`);
+            let response = await res.response;
+            let text = await response.text();
+
+            res = await this.model.generateContent(`Please tell me one food that pregnant women can eat instead of ${foodSentence}`);
+            response = await res.response;
+            text = await response.text();
+
+            result['explanation'] = text;
+        }
+
+        result['text'] = text;
+        return result;
     }
 }
