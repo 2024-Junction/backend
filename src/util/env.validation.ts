@@ -2,7 +2,8 @@ import { plainToClass } from "class-transformer";
 import { IsEnum, IsNumber, IsString, validateSync } from "class-validator";
 
 enum Environment {
-    Dev = 'dev'
+    Dev = 'dev',
+    Prod = 'prod'
 }
 
 class EnvironmentVariables {
