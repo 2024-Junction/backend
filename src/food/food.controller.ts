@@ -1,13 +1,25 @@
-import { Controller, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { FoodService } from './food.service';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GeminiService } from 'src/util/GeminiService';
 
 @Controller('food')
+@ApiTags('Food')
 export class FoodController {
 
-    constructor(private readonly foodService: FoodService) { }
+    constructor(private readonly foodService: FoodService, private readonly geminiService: GeminiService) { }
 
-    @Post("search/:query")
+    @Get("search/:query")
+    @ApiOperation({ summary: 'get food database' })
+    @ApiResponse({ status: 200 })
     async searchFood(@Req() req, @Param('query') query: string) {
         return this.foodService.findFood(query);
+    }
+
+    @Post("needs")
+    @ApiOperation({ summary: 'get alternative food data' })
+    @ApiResponse({ status: 201 })
+    async getAlternativeFood(@Req() req, @Body('query') query: string) {
+        return this.geminiService.analyzeAndRecommend(query);
     }
 }
