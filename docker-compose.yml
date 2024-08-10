@@ -1,12 +1,7 @@
 services:
-  backend:
-    build: ./
-    container_name: junction
-    ports:
-      - '8080:8080'
   local-db:
     image: library/mysql:5.7
-    container_name: junctionDB
+    container_name: junction
     restart: always
     ports:
       - 3306:3306
