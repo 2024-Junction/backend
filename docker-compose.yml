@@ -4,8 +4,6 @@ services:
     container_name: junction
     ports:
       - '8080:8080'
-    networks:
-      - febnine-net
   local-db:
     image: library/mysql:5.7
     container_name: junctionDB
@@ -19,8 +17,3 @@ services:
       - ./db/mysql/data:/var/lib/mysql
       - ./db/mysql/init:/docker-entrypoint-initdb.d
     platform: linux/x86_64
-    networks:
-      - febnine-net
-  networks:
-    febnine-net:
-
