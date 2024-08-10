@@ -11,7 +11,7 @@ export class GeminiService {
     constructor(
         readonly configService: ConfigService,
     ) {
-        this.gemini = new GoogleGenerativeAI(configService.get('GEMINI_API_KEY'));
+        this.gemini = new GoogleGenerativeAI(configService.get('AIzaSyB1k4s9J_gIt6tXjdHWGMIxyhsyF9nq6bE'));
         this.model = this.gemini.getGenerativeModel({ model: "gemini-1.5-flash" });
     }
 

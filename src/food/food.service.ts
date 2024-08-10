@@ -9,8 +9,8 @@ export class FoodService {
     private NOTION_DATABASE: string;
 
     constructor(private readonly configService: ConfigService) {
-        this.NOTION_SECRET = this.configService.get('NOTION_SECRET');
-        this.NOTION_DATABASE = this.configService.get('NOTION_DATABASE');
+        this.NOTION_SECRET = 'secret_rsJN8ijjSab8s9quCPySEtk6RiGm6WA2vZvJwu4tifw'
+        this.NOTION_DATABASE = 'https://api.notion.com/v1/databases/bf6d73eb3189418ea87637e839b11fa0/query'
     }
 
     async findFood(query: string) {
