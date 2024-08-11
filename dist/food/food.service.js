@@ -13,12 +13,13 @@ exports.FoodService = void 0;
 const common_1 = require("@nestjs/common");
 const fs = require("fs");
 const path = require("path");
-const translate = require("google-translate-api");
+const deepl_node_1 = require("deepl-node");
 let FoodService = class FoodService {
     constructor() {
     }
     async findFood(query) {
-        const translateText = await translate(query, { from: 'en', to: 'ko' });
+        const translater = new deepl_node_1.default.Translator("bc618758-73cb-4141-9a7e-8732823d94a6:fx");
+        const translateText = await translater.translateText(query, 'en', 'ko');
         const filePath = path.join(__dirname, `../../src/data/food_data.json`);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         const result = [];
