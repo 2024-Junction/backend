@@ -8,6 +8,10 @@ export class FoodService {
     constructor() {
     }
 
+    shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+    }
+
     async findFood(query: string) {
         // const translateText = await translate(query, { from: 'en', to: 'ko' })
         const translater = new deepl.Translator("bc618758-73cb-4141-9a7e-8732823d94a6:fx")
@@ -33,7 +37,8 @@ export class FoodService {
                 result.push(subdata);
             }
         });
-        return result.slice(1, 21);
+        return this.shuffle(result.slice(1, 20))
     }
+
 }
 

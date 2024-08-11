@@ -17,6 +17,9 @@ const deepl = require("deepl-node");
 let FoodService = class FoodService {
     constructor() {
     }
+    shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+    }
     async findFood(query) {
         const translater = new deepl.Translator("bc618758-73cb-4141-9a7e-8732823d94a6:fx");
         const translateText = await translater.translateText(query, 'en', 'ko');
@@ -33,7 +36,7 @@ let FoodService = class FoodService {
                 result.push(subdata);
             }
         });
-        return result.slice(1, 21);
+        return this.shuffle(result.slice(1, 20));
     }
 };
 exports.FoodService = FoodService;

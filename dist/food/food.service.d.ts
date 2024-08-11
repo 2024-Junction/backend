@@ -1,4 +1,5 @@
 export declare class FoodService {
     constructor();
-    findFood(query: string): Promise<any[]>;
+    shuffle(array: any): void;
+    findFood(query: string): Promise<void>;
 }
