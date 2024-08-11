@@ -26,7 +26,9 @@ let FoodController = class FoodController {
         return this.foodService.findFood(query);
     }
     async getAlternativeFood(req, query) {
-        return this.geminiService.analyze(query);
+        const text = this.geminiService.analyze(query);
+        const nutrient = this.foodService.findFood(query);
+        return { text, nutrient };
     }
 };
 exports.FoodController = FoodController;

@@ -45,6 +45,7 @@ export class GeminiService {
         }
 
         result['text'] = text;
+
         return result;
     }
 }

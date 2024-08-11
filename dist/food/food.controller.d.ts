@@ -5,5 +5,8 @@ export declare class FoodController {
     private readonly geminiService;
     constructor(foodService: FoodService, geminiService: GeminiService);
     searchFood(req: any, query: string): Promise<any[]>;
-    getAlternativeFood(req: any, query: string): Promise<any>;
+    getAlternativeFood(req: any, query: string): Promise<{
+        text: Promise<any>;
+        nutrient: Promise<any[]>;
+    }>;
 }
