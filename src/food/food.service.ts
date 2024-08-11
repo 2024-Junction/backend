@@ -14,7 +14,6 @@ export class FoodService {
         const result = [];
         data['records'].forEach(element => {
             const subdata = []
-            console.log(element);
             if (element['에너지(kcal)'] > 0) subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
             if (element['지방(g)'] > 0) subdata.push({ name: '지방(g)', value: element['지방(g)'] });
             if (element['탄수화물(g)'] > 0) subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
