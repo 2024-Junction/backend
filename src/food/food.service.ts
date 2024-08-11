@@ -19,13 +19,16 @@ export class FoodService {
         data['records'].forEach(element => {
             if (translateText.text.includes(element['대표식품명'])) {
                 const subdata = []
-                subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
-                subdata.push({ name: '지방(g)', value: element['지방(g)'] });
-                subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
+                element.keys().forEach(key => {
+                    if (element[key]) subdata.push({ name: key, value: element[key] });
+                })
+                // subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
+                // subdata.push({ name: '지방(g)', value: element['지방(g)'] });
+                // subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
 
 
-                subdata.push({ name: '당류(g)', value: element['당류(g)'] });
-                subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+                // subdata.push({ name: '당류(g)', value: element['당류(g)'] });
+                // subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
 
                 result.push(subdata);
             }
