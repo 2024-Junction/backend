@@ -32,7 +32,7 @@ export class GeminiService {
         const text = await response.text().replace(regWithoutSpace, "").slice(0, -1);
 
         if (this.stage.indexOf(text.toLowerCase()) > 1) {
-            let res = await this.model.generateContent(`Tell me why ${foodSentence} is bad for pregnant women max words is 15 words`);
+            let res = await this.model.generateContent(`The user said they want to eat the following food: "${foodSentence}". Tell me why ${foodSentence} is bad for pregnant women max words is 15 words`);
             let response = await res.response;
             let text = await response.text().replace(regWithSpace, "").slice(0, -1);
             result['explanation'] = text;
