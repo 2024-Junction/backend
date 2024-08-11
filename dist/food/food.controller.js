@@ -33,7 +33,7 @@ let FoodController = class FoodController {
 };
 exports.FoodController = FoodController;
 __decorate([
-    (0, common_1.Get)("search/:query"),
+    (0, common_1.Get)("search"),
     (0, swagger_1.ApiOperation)({ summary: 'get food database' }),
     (0, swagger_1.ApiResponse)({ status: 200 }),
     __param(0, (0, common_1.Req)()),
