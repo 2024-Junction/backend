@@ -13,7 +13,7 @@ export class FoodController {
     @ApiOperation({ summary: 'get food database' })
     @ApiResponse({ status: 200 })
     async searchFood(@Req() req, @Param('query') query: string) {
-        return this.foodService.findFood(query);
+        return await this.foodService.findFood(query);
     }
 
     @Post("needs")
