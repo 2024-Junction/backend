@@ -9,7 +9,7 @@ export class FoodController {
 
     constructor(private readonly foodService: FoodService, private readonly geminiService: GeminiService) { }
 
-    @Get("search")
+    @Get("search/:query")
     @ApiOperation({ summary: 'get food database' })
     @ApiResponse({ status: 200 })
     async searchFood(@Req() req, @Param('query') query: string) {
