@@ -23,11 +23,11 @@ let FoodController = class FoodController {
         this.geminiService = geminiService;
     }
     async searchFood(req, query) {
-        return await this.foodService.findFood(query);
+        return this.foodService.findFood(query);
     }
     async getAlternativeFood(req, query) {
         const text = await this.geminiService.analyze(query);
-        const nutrient = await this.foodService.findFood(query);
+        const nutrient = this.foodService.findFood(query);
         return { text, nutrient };
     }
 };

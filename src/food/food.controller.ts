@@ -13,7 +13,7 @@ export class FoodController {
     @ApiOperation({ summary: 'get food database' })
     @ApiResponse({ status: 200 })
     async searchFood(@Req() req, @Param('query') query: string) {
-        return await this.foodService.findFood(query);
+        return this.foodService.findFood(query);
     }
 
     @Post("needs")
@@ -21,8 +21,7 @@ export class FoodController {
     @ApiResponse({ status: 201 })
     async getAlternativeFood(@Req() req, @Body('query') query: string) {
         const text = await this.geminiService.analyze(query);
-        const nutrient = await this.foodService.findFood(query);
-
+        const nutrient = this.foodService.findFood(query)
         return { text, nutrient };
     }
 }

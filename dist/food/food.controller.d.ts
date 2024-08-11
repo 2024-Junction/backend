@@ -7,6 +7,6 @@ export declare class FoodController {
     searchFood(req: any, query: string): Promise<any[]>;
     getAlternativeFood(req: any, query: string): Promise<{
         text: any;
-        nutrient: any[];
+        nutrient: Promise<any[]>;
     }>;
 }

@@ -13,15 +13,17 @@ exports.FoodService = void 0;
 const common_1 = require("@nestjs/common");
 const fs = require("fs");
 const path = require("path");
+const translate = require("google-translate-api");
 let FoodService = class FoodService {
     constructor() {
     }
     async findFood(query) {
+        const translateText = await translate(query, { from: 'en', to: 'ko' });
         const filePath = path.join(__dirname, `../../src/data/food_data.json`);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         const result = [];
         data['records'].forEach(element => {
-            if (query.includes(element['대표식품명'])) {
+            if (translateText.text.includes(element['대표식품명'])) {
                 const subdata = [];
                 if (element['에너지(kcal)'] > 0)
                     subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
