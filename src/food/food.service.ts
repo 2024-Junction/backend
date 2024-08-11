@@ -1,37 +1,31 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import axios from 'axios';
-import { isArray } from 'class-validator';
+import { Injectable, Param } from '@nestjs/common';
+import * as fs from "fs";
+import * as path from 'path'
 
 @Injectable()
 export class FoodService {
-    private NOTION_SECRET: string;
-    private NOTION_DATABASE: string;
-
-    constructor(private readonly configService: ConfigService) {
-        this.NOTION_SECRET = 'secret_rsJN8ijjSab8s9quCPySEtk6RiGm6WA2vZvJwu4tifw'
-        this.NOTION_DATABASE = 'https://api.notion.com/v1/databases/bf6d73eb3189418ea87637e839b11fa0/query'
+    constructor() {
     }
 
     async findFood(query: string) {
-        let results = [];
+        const filePath = path.join(__dirname, `../../src/data/food_data.json`);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-        const { data } = await axios.post(this.NOTION_DATABASE, {}, {
-            headers: {
-                'Authorization': `Bearer ${this.NOTION_SECRET}`,
-                'Notion-Version': '2022-06-28',
-                'Content-Type': 'application/json'
-            }
-        })
+        const result = [];
+        data['records'].forEach(element => {
+            const subdata = []
+            console.log(element);
+            if (element['에너지(kcal)'] > 0) subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
+            if (element['지방(g)'] > 0) subdata.push({ name: '지방(g)', value: element['지방(g)'] });
+            if (element['탄수화물(g)'] > 0) subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
 
-        results = data.results.filter(result => {
-            if (isArray(result.properties['이름'].title) && result.properties['이름'].title.length > 0) {
-                return result.properties['이름'].title[0].text.content.includes(query);
-            }
-            else
-                return result.properties['이름'].title.text.content.includes(query);
-        })
+            if (subdata.length < 3 && element['당류(g)'] > 0)
+                subdata.push({ name: '당류(g)', value: element['당류(g)'] });
 
-        return results;
+            if (subdata.length < 3 && element['칼륨(mg)'] > 0)
+                subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+        });
+        return result;
     }
 }
+
