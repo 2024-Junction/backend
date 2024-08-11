@@ -17,9 +17,6 @@ const deepl = require("deepl-node");
 let FoodService = class FoodService {
     constructor() {
     }
-    shuffle(array) {
-        array.sort(() => Math.random() - 0.5);
-    }
     async findFood(query) {
         const translater = new deepl.Translator("bc618758-73cb-4141-9a7e-8732823d94a6:fx");
         const translateText = await translater.translateText(query, 'en', 'ko');
@@ -27,17 +24,19 @@ let FoodService = class FoodService {
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         const result = [];
         data['records'].forEach(element => {
-            if (translateText.text.includes(element['대표식품명'])) {
-                const subdata = [];
-                subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
-                subdata.push({ name: '지방(g)', value: element['지방(g)'] });
-                subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
-                subdata.push({ name: '당류(g)', value: element['당류(g)'] });
-                subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
-                result.push(subdata);
-            }
+            const subdata = [];
+            subdata.push({ name: '식품명', value: element['식품명'] });
+            subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
+            subdata.push({ name: '지방(g)', value: element['지방(g)'] });
+            subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
+            subdata.push({ name: '당류(g)', value: element['당류(g)'] });
+            subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+            subdata.push({ name: '나트륨(mg)', value: element['나트륨(mg)'] });
+            subdata.push({ name: '비타민 D(μg)', value: element['비타민 D(μg)'] });
+            subdata.push({ name: '비타민 A(μg RAE)', value: element['비타민 A(μg RAE)'] });
+            result.push(subdata);
         });
-        return this.shuffle(result.slice(1, 10));
+        return result.slice(10);
     }
 };
 exports.FoodService = FoodService;

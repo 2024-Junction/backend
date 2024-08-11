@@ -8,9 +8,6 @@ export class FoodService {
     constructor() {
     }
 
-    shuffle(array) {
-        array.sort(() => Math.random() - 0.5);
-    }
 
     async findFood(query: string) {
         // const translateText = await translate(query, { from: 'en', to: 'ko' })
@@ -21,21 +18,23 @@ export class FoodService {
 
         const result = [];
         data['records'].forEach(element => {
-            if (translateText.text.includes(element['대표식품명'])) {
-                const subdata = []
+            // if (translateText.text.includes(element['대표식품명'])) {
+            const subdata = []
 
-                subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
-                subdata.push({ name: '지방(g)', value: element['지방(g)'] });
-                subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
+            subdata.push({ name: '식품명', value: element['식품명'] });
+            subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
+            subdata.push({ name: '지방(g)', value: element['지방(g)'] });
+            subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
+            subdata.push({ name: '당류(g)', value: element['당류(g)'] });
+            subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+            subdata.push({ name: '나트륨(mg)', value: element['나트륨(mg)'] });
+            subdata.push({ name: '비타민 D(μg)', value: element['비타민 D(μg)'] });
+            subdata.push({ name: '비타민 A(μg RAE)', value: element['비타민 A(μg RAE)'] });
 
-
-                subdata.push({ name: '당류(g)', value: element['당류(g)'] });
-                subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
-
-                result.push(subdata);
-            }
+            result.push(subdata);
         });
-        return this.shuffle(result.slice(1, 10))
+
+        return result.slice(10);
     }
 
 }
