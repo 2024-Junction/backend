@@ -1,7 +1,7 @@
 import { Injectable, Param } from '@nestjs/common';
 import * as fs from "fs";
 import * as path from 'path'
-import deepl from "deepl-node"
+import * as deepl from "deepl-node"
 
 @Injectable()
 export class FoodService {
@@ -19,18 +19,18 @@ export class FoodService {
         data['records'].forEach(element => {
             if (translateText.text.includes(element['대표식품명'])) {
                 const subdata = []
-                if (element['에너지(kcal)'] > 0) subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
-                if (element['지방(g)'] > 0) subdata.push({ name: '지방(g)', value: element['지방(g)'] });
-                if (element['탄수화물(g)'] > 0) subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
+                subdata.push({ name: '에너지(kcal)', value: element['에너지(kcal)'] });
+                subdata.push({ name: '지방(g)', value: element['지방(g)'] });
+                subdata.push({ name: '탄수화물(g)', value: element['탄수화물(g)'] });
 
-                if (subdata.length < 3 && element['당류(g)'] > 0)
-                    subdata.push({ name: '당류(g)', value: element['당류(g)'] });
 
-                if (subdata.length < 3 && element['칼륨(mg)'] > 0)
-                    subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+                subdata.push({ name: '당류(g)', value: element['당류(g)'] });
+                subdata.push({ name: '칼륨(mg)', value: element['칼륨(mg)'] });
+
+                result.push(subdata);
             }
         });
-        return result;
+        return result.slice(1, 21);
     }
 }
 
